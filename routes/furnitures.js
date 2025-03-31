@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const furnitureController = require('../controllers/furnitureController');
 
-const upload = multer({ dest: 'uploadedFiles/' })
-
 router.get('/', furnitureController.getFurnitures);
 router.post('/create', furnitureController.createFurniture)
 
