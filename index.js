@@ -16,7 +16,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'] 
 }));
 
-const MONGO_URI = process.env.MONGO_URI
+const mongoURI = process.env.MONGO_URI
 
 // Conexión a MongoDB
 mongoose.connect(mongoURI, {
