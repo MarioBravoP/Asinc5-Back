@@ -1,5 +1,4 @@
 const Furniture = require('../models/furnitureModel');
-const fs = require('fs');
 
 exports.getFurnitures = async (req, res) => {
     try {
@@ -13,20 +12,17 @@ exports.getFurnitures = async (req, res) => {
 
 exports.createFurniture = async (req, res) => {
     try {
-        const { name, description, author } = req.body;
+        const { name, description, author, image } = req.body;
 
-        if (!req.file) {
-            return res.status(400).json({ message: "Es necesario subir una foto."})
+        if (!image) {
+            return res.status(400).json({ message: "Es necesario subir una imagen en base64." });
         }
-
-        const image = fs.readFileSync(req.file.path, { encoding: "base64" })
 
         const furniture = new Furniture({ name, description, author, image });
         await furniture.save();
-        fs.unlinkSync(req.file.path);
 
-        res.status(200).json({"Elemento añadido correctamente": furniture});
+        res.status(200).json({ message: "Elemento añadido correctamente", furniture });
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(400).json({ error: error.message });
     }
 }
